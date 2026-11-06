@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sendnoti-be-30090
+  namespace: boat
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: sendnoti-be-30090
+
+  template:
+    metadata:
+      labels:
+        app: sendnoti-be-30090
+
+    spec:
+      containers:
+      - name: sendnoti-be-30090
+
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+
+        imagePullPolicy: Always
+
+        ports:
+        - containerPort: 3333
+
+        envFrom: 
+        - secretRef: 
+            name: sendnoti-be-30090-secret
